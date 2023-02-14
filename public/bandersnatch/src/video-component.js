@@ -15,7 +15,11 @@ class VideoComponent {
     this.modal = modal
   }
 
-
+  configureModal (selected) {
+    const modal = this.modal
+    modal.on('modalopen', this.getModalTemplate(selected, modal))
+    modal.open()
+  }
 
   getModalTemplate (options, modal) {
     return () => {
