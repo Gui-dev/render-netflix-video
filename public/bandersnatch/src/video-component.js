@@ -1,6 +1,6 @@
 class VideoComponent {
   constructor () {
-
+    this.modal = {}
   }
 
   initializePlayer () {
@@ -11,5 +11,28 @@ class VideoComponent {
       closeable: true
     })
     player.addChild(modal)
+    player.on('play', () => {})
+    this.modal = modal
+  }
+
+
+
+  getModalTemplate (options, modal) {
+    return () => {
+      const [option1, option2] = options
+      const htmlTemplate = `
+        <div class="overlay">
+          <div class="videoButtonWrapper">
+            <button class="btn btn-dark" onClick="window.nextChunk('${option1}')">
+              ${option1}
+            </button>
+            <button class="btn btn-dark" onClick="window.nextChunk('${option2}')">
+              ${option2}
+            </button>
+          </div>
+        </div>
+      `
+      modal.contentEl().innerHTML = htmlTemplate
+    }
   }
 }
