@@ -11,7 +11,7 @@ class VideoComponent {
       closeable: true
     })
     player.addChild(modal)
-    player.on('play', () => {})
+    player.on('play', () => modal.close())
     this.modal = modal
   }
 
