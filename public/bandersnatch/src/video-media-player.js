@@ -8,6 +8,7 @@ class VideoMediaPlayer {
     this.activeItem = {}
     this.selected = {}
     this.videoDuration = 0
+    this.selections = []
   }
 
   initializeCodec () {
@@ -65,8 +66,17 @@ class VideoMediaPlayer {
       ...selected,
       at: parseInt(this.videoElement.currentTime + selected.at) // ajustar o tempo que a modal vai aparecer, baseado no tempo corrente
     }
+    this.manageLag(this.selected)
     this.videoElement.play() //deixa o restante do video rodar enquanto o novo video baixa
     await this.fileDownload(selected.url)
+  }
+
+  manageLag (selected) {
+    if (!!~this.selections.indexOf(selected.url)) {
+      selected.at += 5
+      return
+    }
+    this.selections.push(selected.url)
   }
 
   async fileDownload (url) {
